@@ -1,26 +1,29 @@
-using UnityEngine;
+﻿using UnityEngine;
+using System;
 
 public class EnemyPatrol : MonoBehaviour
 {
-    [Header("Patrol Settings")]
+    public event Action OnPlayerDetected;
+    public event Action OnPlayerLost;
+
+
     public Transform pointA;
     public Transform pointB;
     public float speed = 2f;
     private Transform targetPoint;
-    private bool facingUp = false; 
+    private bool facingUp = false;
 
-    [Header("Vision Settings")]
-    public Transform detectionPoint; 
+ 
+    public Transform detectionPoint;
     public float visionRange = 5f;
     public float visionAngle = 45f;
     public LayerMask playerLayer;
     public LayerMask obstacleLayer;
 
-    [Header("Alarm System")]
     public GameObject alarmIndicator;
-    private bool playerDetected = false;
 
     private Transform player;
+    private bool playerDetected = false;
 
     void Start()
     {
@@ -48,11 +51,9 @@ public class EnemyPatrol : MonoBehaviour
     void Flip()
     {
         facingUp = !facingUp;
-
         Vector3 newScale = transform.localScale;
         newScale.z *= -1;
         newScale.x *= -1;
-  
         transform.localScale = newScale;
     }
 
@@ -71,15 +72,23 @@ public class EnemyPatrol : MonoBehaviour
             {
                 if (!Physics2D.Raycast(detectionPoint.position, directionToPlayer, distanceToPlayer, obstacleLayer))
                 {
-                    playerDetected = true;
-                    alarmIndicator.SetActive(true);
+                    if (!playerDetected)
+                    {
+                        playerDetected = true;
+                        OnPlayerDetected?.Invoke();
+                        alarmIndicator.SetActive(true);
+                    }
                     return;
                 }
             }
         }
 
-        playerDetected = false;
-        alarmIndicator.SetActive(false);
+        if (playerDetected)
+        {
+            playerDetected = false;
+            OnPlayerLost?.Invoke();
+            alarmIndicator.SetActive(false);
+        }
     }
 
     void OnDrawGizmos()
@@ -95,11 +104,5 @@ public class EnemyPatrol : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawLine(detectionPoint.position, detectionPoint.position + upLimit);
         Gizmos.DrawLine(detectionPoint.position, detectionPoint.position + downLimit);
-
-        if (player != null && playerDetected)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawLine(detectionPoint.position, player.position);
-        }
     }
 }
