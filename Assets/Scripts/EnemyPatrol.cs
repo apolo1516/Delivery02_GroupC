@@ -6,20 +6,22 @@ public class EnemyPatrol : MonoBehaviour
     public event Action OnPlayerDetected;
     public event Action OnPlayerLost;
 
-
+    [Header("Patrol Settings")]
     public Transform pointA;
     public Transform pointB;
     public float speed = 2f;
     private Transform targetPoint;
     private bool facingUp = false;
+    private bool movingHorizontally;
 
- 
+    [Header("Vision Settings")]
     public Transform detectionPoint;
     public float visionRange = 5f;
     public float visionAngle = 45f;
     public LayerMask playerLayer;
     public LayerMask obstacleLayer;
 
+    [Header("Alarm System")]
     public GameObject alarmIndicator;
 
     private Transform player;
@@ -29,6 +31,7 @@ public class EnemyPatrol : MonoBehaviour
     {
         targetPoint = pointB;
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        movingHorizontally = Mathf.Abs(pointA.position.x - pointB.position.x) > Mathf.Abs(pointA.position.y - pointB.position.y);
     }
 
     void Update()
@@ -50,11 +53,19 @@ public class EnemyPatrol : MonoBehaviour
 
     void Flip()
     {
-        facingUp = !facingUp;
-        Vector3 newScale = transform.localScale;
-        newScale.z *= -1;
-        newScale.x *= -1;
-        transform.localScale = newScale;
+        if (movingHorizontally)
+        {
+            Vector3 newScale = transform.localScale;
+            newScale.x *= -1;
+            transform.localScale = newScale;
+        }
+        else
+        {
+            facingUp = !facingUp;
+            Vector3 newScale = transform.localScale;
+            newScale.y *= -1;
+            transform.localScale = newScale;
+        }
     }
 
     void DetectPlayer()
@@ -66,7 +77,7 @@ public class EnemyPatrol : MonoBehaviour
 
         if (distanceToPlayer <= visionRange)
         {
-            float angleToPlayer = Vector3.Angle(facingUp ? Vector3.up : Vector3.down, directionToPlayer);
+            float angleToPlayer = Vector3.Angle(movingHorizontally ? transform.right : (facingUp ? Vector3.up : Vector3.down), directionToPlayer);
 
             if (angleToPlayer < visionAngle / 2)
             {
@@ -98,8 +109,9 @@ public class EnemyPatrol : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(detectionPoint.position, visionRange);
 
-        Vector3 upLimit = Quaternion.Euler(0, 0, visionAngle / 2) * (facingUp ? Vector3.up : Vector3.down) * visionRange;
-        Vector3 downLimit = Quaternion.Euler(0, 0, -visionAngle / 2) * (facingUp ? Vector3.up : Vector3.down) * visionRange;
+        Vector3 forwardDirection = movingHorizontally ? transform.right : (facingUp ? Vector3.up : Vector3.down);
+        Vector3 upLimit = Quaternion.Euler(0, 0, visionAngle / 2) * forwardDirection * visionRange;
+        Vector3 downLimit = Quaternion.Euler(0, 0, -visionAngle / 2) * forwardDirection * visionRange;
 
         Gizmos.color = Color.red;
         Gizmos.DrawLine(detectionPoint.position, detectionPoint.position + upLimit);
