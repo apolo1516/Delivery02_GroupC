@@ -7,7 +7,6 @@ public class EnemyPatrol : MonoBehaviour
     public event Action OnPlayerLost;
     public event Action OnPatrolPointReached;
 
-    [Header("Patrol Settings")]
     public Transform pointA;
     public Transform pointB;
     public float speed = 2f;

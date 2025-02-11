@@ -10,6 +10,7 @@ public class EnemyVision : MonoBehaviour
     public LayerMask obstacleLayer;
     private Transform player;
     private bool playerDetected = false;
+    private bool facingUp = false;
     public event Action OnPlayerDetected;
     public event Action OnPlayerLost;
 
@@ -57,21 +58,23 @@ public class EnemyVision : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (detectionPoint == null)
-            return;
-
+      
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(detectionPoint.position, visionRange); 
+        Gizmos.DrawWireSphere(detectionPoint.position, visionRange);
 
-        // Dibuja el cono de visión
-        Vector3 rightEdge = Quaternion.Euler(0, 0, visionAngle / 2) * transform.right * visionRange;
-        Vector3 leftEdge = Quaternion.Euler(0, 0, -visionAngle / 2) * transform.right * visionRange;
+        Vector3 forwardDirection = transform.TransformDirection(Vector3.right);
+        
+
+        Vector3 rightEdge = Quaternion.Euler(0, 0, visionAngle / 2) * forwardDirection * visionRange;
+        Vector3 leftEdge = Quaternion.Euler(0, 0, -visionAngle / 2) * forwardDirection * visionRange;
 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(detectionPoint.position, detectionPoint.position + rightEdge); 
-        Gizmos.DrawLine(detectionPoint.position, detectionPoint.position + leftEdge);  
+        Gizmos.DrawLine(detectionPoint.position, detectionPoint.position + rightEdge);
+        Gizmos.DrawLine(detectionPoint.position, detectionPoint.position + leftEdge);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(detectionPoint.position, detectionPoint.position + transform.right * visionRange);
+        Gizmos.DrawLine(detectionPoint.position, detectionPoint.position + forwardDirection * visionRange);
     }
+
+
 }
