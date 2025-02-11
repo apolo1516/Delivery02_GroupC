@@ -2,29 +2,30 @@ using UnityEngine;
 
 public class EnemyPatrol : MonoBehaviour
 {
-
+    [Header("Patrol Settings")]
     public Transform pointA;
     public Transform pointB;
     public float speed = 2f;
     private Transform targetPoint;
+    private bool facingUp = false; // Controla si el enemigo mira arriba o abajo
 
-    public Transform detectionPoint; 
+    [Header("Vision Settings")]
+    public Transform detectionPoint; // Punto de detección
     public float visionRange = 5f;
     public float visionAngle = 45f;
     public LayerMask playerLayer;
     public LayerMask obstacleLayer;
 
-    public GameObject alarmIndicator; 
+    [Header("Alarm System")]
+    public GameObject alarmIndicator; // Alarma visual
     private bool playerDetected = false;
 
     private Transform player;
-    private Vector3 originalScale;
 
     void Start()
     {
-        targetPoint = pointA;
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        originalScale = transform.localScale;
+        targetPoint = pointB;
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
 
     void Update()
@@ -39,15 +40,21 @@ public class EnemyPatrol : MonoBehaviour
 
         if (Vector3.Distance(transform.position, targetPoint.position) < 0.2f)
         {
-            targetPoint = targetPoint == pointA ? pointB : pointA;
+            // Cambia de dirección y voltea el sprite
+            targetPoint = (targetPoint == pointA) ? pointB : pointA;
             Flip();
         }
     }
 
     void Flip()
     {
-        Vector3 newScale = originalScale;
+        facingUp = !facingUp;
+
+        // Invertir la escala en Y para que el sprite mire hacia arriba o abajo
+        Vector3 newScale = transform.localScale;
+        newScale.z *= -1;
         newScale.x *= -1;
+  
         transform.localScale = newScale;
     }
 
@@ -58,12 +65,14 @@ public class EnemyPatrol : MonoBehaviour
         Vector3 directionToPlayer = (player.position - detectionPoint.position).normalized;
         float distanceToPlayer = Vector3.Distance(detectionPoint.position, player.position);
 
+        // Verificar si el jugador está dentro del rango de visión
         if (distanceToPlayer <= visionRange)
         {
-            float angleToPlayer = Vector3.Angle(transform.right, directionToPlayer);
+            float angleToPlayer = Vector3.Angle(facingUp ? Vector3.up : Vector3.down, directionToPlayer);
 
             if (angleToPlayer < visionAngle / 2)
             {
+                // Verificar si hay obstáculos entre el enemigo y el jugador
                 if (!Physics2D.Raycast(detectionPoint.position, directionToPlayer, distanceToPlayer, obstacleLayer))
                 {
                     playerDetected = true;
@@ -81,15 +90,19 @@ public class EnemyPatrol : MonoBehaviour
     {
         if (detectionPoint == null) return;
 
+        // Dibujar rango de visión
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(detectionPoint.position, visionRange);
 
-        Vector3 rightLimit = Quaternion.Euler(0, 0, visionAngle / 2) * transform.right * visionRange;
-        Vector3 leftLimit = Quaternion.Euler(0, 0, -visionAngle / 2) * transform.right * visionRange;
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(detectionPoint.position, detectionPoint.position + rightLimit);
-        Gizmos.DrawLine(detectionPoint.position, detectionPoint.position + leftLimit);
+        // Dibujar cono de visión en dirección vertical
+        Vector3 upLimit = Quaternion.Euler(0, 0, visionAngle / 2) * (facingUp ? Vector3.up : Vector3.down) * visionRange;
+        Vector3 downLimit = Quaternion.Euler(0, 0, -visionAngle / 2) * (facingUp ? Vector3.up : Vector3.down) * visionRange;
 
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(detectionPoint.position, detectionPoint.position + upLimit);
+        Gizmos.DrawLine(detectionPoint.position, detectionPoint.position + downLimit);
+
+        // Dibujar línea hacia el jugador si está detectado
         if (player != null && playerDetected)
         {
             Gizmos.color = Color.green;
