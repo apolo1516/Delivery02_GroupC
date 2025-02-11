@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 public class EnemyVision : MonoBehaviour
@@ -10,7 +10,6 @@ public class EnemyVision : MonoBehaviour
     public LayerMask obstacleLayer;
     private Transform player;
     private bool playerDetected = false;
-    private bool facingUp = false;
     public event Action OnPlayerDetected;
     public event Action OnPlayerLost;
 
@@ -31,21 +30,21 @@ public class EnemyVision : MonoBehaviour
         Vector3 directionToPlayer = (player.position - detectionPoint.position).normalized;
         float distanceToPlayer = Vector3.Distance(detectionPoint.position, player.position);
 
-        if (distanceToPlayer <= visionRange)
-        {
-            float angleToPlayer = Vector3.Angle(transform.right, directionToPlayer);
+        // 🔥 Convertimos la dirección local a global
+        Vector3 forwardDirection = detectionPoint.TransformDirection(Vector3.right);
 
-            if (angleToPlayer < visionAngle / 2)
+        float angleToPlayer = Vector3.Angle(forwardDirection, directionToPlayer);
+
+        if (distanceToPlayer <= visionRange && angleToPlayer < visionAngle / 2)
+        {
+            if (!Physics2D.Raycast(detectionPoint.position, directionToPlayer, distanceToPlayer, obstacleLayer))
             {
-                if (!Physics2D.Raycast(detectionPoint.position, directionToPlayer, distanceToPlayer, obstacleLayer))
+                if (!playerDetected)
                 {
-                    if (!playerDetected)
-                    {
-                        playerDetected = true;
-                        OnPlayerDetected?.Invoke();
-                    }
-                    return;
+                    playerDetected = true;
+                    OnPlayerDetected?.Invoke();
                 }
+                return;
             }
         }
 
@@ -58,12 +57,14 @@ public class EnemyVision : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-      
+        if (detectionPoint == null)
+            return;
+
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(detectionPoint.position, visionRange);
 
-        Vector3 forwardDirection = transform.TransformDirection(Vector3.right);
-        
+        // 🔥 Convertimos la dirección local a global para que el cono de visión rote correctamente
+        Vector3 forwardDirection = detectionPoint.TransformDirection(Vector3.right);
 
         Vector3 rightEdge = Quaternion.Euler(0, 0, visionAngle / 2) * forwardDirection * visionRange;
         Vector3 leftEdge = Quaternion.Euler(0, 0, -visionAngle / 2) * forwardDirection * visionRange;
@@ -75,6 +76,4 @@ public class EnemyVision : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawLine(detectionPoint.position, detectionPoint.position + forwardDirection * visionRange);
     }
-
-
 }
