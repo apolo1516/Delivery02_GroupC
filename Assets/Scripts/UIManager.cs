@@ -3,9 +3,10 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    
     [Header("UI References")]
     [SerializeField] private Text _timeText;
-
+   
     private void OnEnable()
     {
         // Buscar el LevelTimer en la escena usando FindFirstObjectByType
@@ -46,4 +47,9 @@ public class UIManager : MonoBehaviour
             Debug.LogError("Time Text no asignado en el UIManager.");
         }
     }
+    public void OnQuit()
+    {
+        Application.Quit();
+    }
+
 }
