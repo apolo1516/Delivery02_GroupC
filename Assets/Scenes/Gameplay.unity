@@ -1637,6 +1637,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1073440156}
   - component: {fileID: 1073440155}
+  - component: {fileID: 1073440157}
+  - component: {fileID: 1073440158}
   m_Layer: 0
   m_Name: Enemy01 (1)
   m_TagString: Untagged
@@ -1659,16 +1661,6 @@ MonoBehaviour:
   pointA: {fileID: 1725664823}
   pointB: {fileID: 478915914}
   speed: 2
-  detectionPoint: {fileID: 1613503443}
-  visionRange: 3
-  visionAngle: 50
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  alarmIndicator: {fileID: 1410968679}
 --- !u!4 &1073440156
 Transform:
   m_ObjectHideFlags: 0
@@ -1687,6 +1679,40 @@ Transform:
   - {fileID: 1613503443}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1073440157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073440154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39b16a3626cfe0f4890858802c887ac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionPoint: {fileID: 1613503443}
+  visionRange: 3
+  visionAngle: 45
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 512
+--- !u!114 &1073440158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073440154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15bd58b2aa1518144801d1b1f6b12c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alarmIndicator: {fileID: 1410968679}
 --- !u!1 &1410968679
 GameObject:
   m_ObjectHideFlags: 0
@@ -2515,6 +2541,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2108089968}
   - component: {fileID: 2108089969}
+  - component: {fileID: 2108089970}
+  - component: {fileID: 2108089971}
   m_Layer: 0
   m_Name: Enemy01
   m_TagString: Untagged
@@ -2555,15 +2583,39 @@ MonoBehaviour:
   pointA: {fileID: 1693312060}
   pointB: {fileID: 2100607507}
   speed: 2
+--- !u!114 &2108089970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108089965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39b16a3626cfe0f4890858802c887ac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   detectionPoint: {fileID: 473472530}
   visionRange: 3
-  visionAngle: 55
+  visionAngle: 45
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 512
+--- !u!114 &2108089971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108089965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15bd58b2aa1518144801d1b1f6b12c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   alarmIndicator: {fileID: 567589344}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
