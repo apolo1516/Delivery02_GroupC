@@ -1,3 +1,6 @@
+AnOrangeCity and Nightcity LICENSE
+
+
 HI! WE ARE THE 14 COLLECTIVE AND WE ARE GRATEFUL FOR YOUR
 PURCHASE.
 
@@ -20,3 +23,10 @@ Happy Creating!
 License 
 
 This asset pack can be used in free and commercial projects. You can modify the assets as you need. You may not repackage, redistribute or resell the assets, no matter how much they are modified. Credit is not necessary, but always appreciated. 
+
+
+
+
+
+UrbanNightscape LICENSE 
+This asset pack can be used in both free and commercial projects. You can modify it to suit your own needs. Credit is not necessary, but appreciated. You may not redistribute it or resell it.

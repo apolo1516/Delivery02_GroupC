@@ -3,8 +3,6 @@ using System;
 
 public class EnemyPatrol : MonoBehaviour
 {
-    public event Action OnPlayerDetected;
-    public event Action OnPlayerLost;
     public event Action OnPatrolPointReached;
 
     public Transform pointA;

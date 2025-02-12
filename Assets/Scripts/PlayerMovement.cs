@@ -23,8 +23,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMove(InputValue value)
     {
-        // Read value from control, the type depends on what
-        // type of controls the action is bound to
         var inputVal = value.Get<Vector2>();
 
         Vector2 velocity = inputVal * Speed;
@@ -36,10 +34,8 @@ public class PlayerMovement : MonoBehaviour
         else transform.rotation = Quaternion.identity;
     }
 
-    // NOTE: InputSystem: "SaveScore" action becomes "OnSaveScore" method
     public void OnSaveScore()
     {
-        // Usage example on how to save score
         PlayerPrefs.SetInt("Score", score);
         score = PlayerPrefs.GetInt("Score");
     }
