@@ -213,6 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceText: {fileID: 8979769}
+  _distanceMoved: 0
 --- !u!1 &16830841
 GameObject:
   m_ObjectHideFlags: 0
@@ -1714,6 +1715,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeText: {fileID: 615651457}
+  ElapsedTime: 0
 --- !u!1 &619275481
 GameObject:
   m_ObjectHideFlags: 0
@@ -1828,7 +1830,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 701959397}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 994172ee61aef7b4bb857e2628e1ff4b, type: 3}
+  m_Script: {fileID: 11500000, guid: 131269e3cf3fde845a79f306784c45ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &701959399
