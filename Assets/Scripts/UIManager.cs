@@ -51,5 +51,4 @@ public class UIManager : MonoBehaviour
     {
         Application.Quit();
     }
-
 }
