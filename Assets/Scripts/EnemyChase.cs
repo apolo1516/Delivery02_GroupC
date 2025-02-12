@@ -8,19 +8,27 @@ public class EnemyChase : MonoBehaviour
     private float speed;
     private Rigidbody2D _rigidbody;
     public bool isChasing;
+    public AudioClip ChaseSound;
+    private AudioSource audioSource;
 
     void Start()
     {   
         player = GameObject.Find("Player");
         speed = 3f;
         _rigidbody = GetComponent<Rigidbody2D>();
-        isChasing = false; 
+        isChasing = false;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isChasing) Follow();
+        if (isChasing)
+        {
+            audioSource.PlayOneShot(ChaseSound);
+            Follow();
+        }
+        
     }
     void Follow()
     {
