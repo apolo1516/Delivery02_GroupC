@@ -13,16 +13,18 @@ public class EnemyPatrol : MonoBehaviour
     private Transform targetPoint;
     private bool facingUp = false;
     private bool movingHorizontally;
+    public bool isPatroling;
 
     void Start()
     {
         targetPoint = pointB;
         movingHorizontally = Mathf.Abs(pointA.position.x - pointB.position.x) > Mathf.Abs(pointA.position.y - pointB.position.y);
+        isPatroling = true;
     }
 
     void Update()
     {
-        Patrol();
+        if (isPatroling) Patrol();
     }
 
     void Patrol()
