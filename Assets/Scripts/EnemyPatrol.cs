@@ -11,15 +11,14 @@ public class EnemyPatrol : MonoBehaviour
     public Transform pointB;
     public float speed = 2f;
     private Transform targetPoint;
-    private bool facingUp = false;
-    private bool movingHorizontally;
     public bool isPatroling;
+    private Rigidbody2D _rigidbody;
 
     void Start()
     {
         targetPoint = pointB;
-        movingHorizontally = Mathf.Abs(pointA.position.x - pointB.position.x) > Mathf.Abs(pointA.position.y - pointB.position.y);
         isPatroling = true;
+        _rigidbody = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -29,30 +28,21 @@ public class EnemyPatrol : MonoBehaviour
 
     void Patrol()
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
-
         if (Vector3.Distance(transform.position, targetPoint.position) < 0.2f)
         {
             targetPoint = (targetPoint == pointA) ? pointB : pointA;
-            Flip();
             OnPatrolPointReached?.Invoke();
-        }
-    }
-
-    void Flip()
-    {
-        if (movingHorizontally)
-        {
-            Vector3 newScale = transform.localScale;
-            newScale.x *= -1;
-            transform.localScale = newScale;
         }
         else
         {
-            facingUp = !facingUp;
-            Vector3 newScale = transform.localScale;
-            newScale.y *= -1;
-            transform.localScale = newScale;
+            Vector3 dir = targetPoint.transform.position - transform.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            dir.Normalize();
+            Vector2 velocity = dir * speed;
+            _rigidbody.linearVelocity = velocity;
+            Debug.Log(_rigidbody.linearVelocity);
+
+            transform.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
 }

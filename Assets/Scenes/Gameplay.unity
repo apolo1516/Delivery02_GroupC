@@ -550,7 +550,7 @@ Transform:
   m_GameObject: {fileID: 301741759}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.07, y: -2.1, z: 0}
+  m_LocalPosition: {x: -0.07, y: -5.86, z: 0}
   m_LocalScale: {x: 1, y: 0.85, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1221,7 +1221,7 @@ Transform:
   m_GameObject: {fileID: 565794547}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.64, y: -2.86, z: 0}
+  m_LocalPosition: {x: -4.64, y: -0.37, z: 0}
   m_LocalScale: {x: 1.3506, y: 1.3506, z: 1.3506}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2125,7 +2125,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!95 &1701691621
 Animator:
   serializedVersion: 7
@@ -2353,6 +2353,7 @@ MonoBehaviour:
   pointA: {fileID: 1725664823}
   pointB: {fileID: 478915914}
   speed: 2
+  isPatroling: 0
 --- !u!4 &1821763817
 Transform:
   m_ObjectHideFlags: 0
@@ -2429,6 +2430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50ff4131efbbe7e4da9c25231900c742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isChasing: 0
 --- !u!50 &1821763820
 Rigidbody2D:
   serializedVersion: 5
@@ -2455,7 +2457,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &1865121214
 GameObject:
   m_ObjectHideFlags: 0
@@ -2675,7 +2677,7 @@ Transform:
   m_GameObject: {fileID: 2039102913}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.34, y: 0.51, z: 0}
+  m_LocalPosition: {x: 4.58, y: -1.58, z: 0}
   m_LocalScale: {x: 1.3506, y: 1.3506, z: 1.3506}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2825,6 +2827,7 @@ MonoBehaviour:
   pointA: {fileID: 1693312060}
   pointB: {fileID: 2100607507}
   speed: 2
+  isPatroling: 0
 --- !u!114 &2108089970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2918,6 +2921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50ff4131efbbe7e4da9c25231900c742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isChasing: 0
 --- !u!50 &2108089974
 Rigidbody2D:
   serializedVersion: 5
@@ -2944,7 +2948,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
