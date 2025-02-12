@@ -20,7 +20,7 @@ public class WinSystem : MonoBehaviour
 
     private void WinScreen(WinObserver win)
     {
-        //ScoreSystem.Instance.Score = scoreManager.GetComponent<ScoreSystem>().Score;
+        ScoreSystem.Instance.Score = scoreManager.GetComponent<ScoreSystem>().Score;
         SceneManager.LoadScene("WinScreen");
     }
 }
