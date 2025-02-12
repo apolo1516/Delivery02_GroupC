@@ -13,18 +13,12 @@ public class PlayerMovement : MonoBehaviour
 
     private bool _isMoving;
     Rigidbody2D _rigidbody;
-    private Vector2 _position;
-    private Vector2 _newPosition;
-    private float _distanceMoved;
 
     private int score = 2000;
 
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        _position = GetPlayerPosition();
-        _newPosition = GetPlayerPosition();
-        _distanceMoved = 0;
     }
 
     public void OnMove(InputValue value)
@@ -40,17 +34,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (_isMoving) LookAt((Vector2)transform.position + velocity);
         else transform.rotation = Quaternion.identity;
-
-        _newPosition = GetPlayerPosition();
-        _distanceMoved += Vector2.Distance(_position, _newPosition);
-        _position = GetPlayerPosition();
-        // Debug.Log(_distanceMoved);
-        Debug.Log(_rigidbody.linearVelocity);
-    }
-
-    public Vector2 GetPlayerPosition()
-    {
-        return new Vector2(transform.position.x, transform.position.y);
     }
 
     // NOTE: InputSystem: "SaveScore" action becomes "OnSaveScore" method

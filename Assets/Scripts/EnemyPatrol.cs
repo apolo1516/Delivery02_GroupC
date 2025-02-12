@@ -40,7 +40,6 @@ public class EnemyPatrol : MonoBehaviour
             dir.Normalize();
             Vector2 velocity = dir * speed;
             _rigidbody.linearVelocity = velocity;
-            Debug.Log(_rigidbody.linearVelocity);
 
             transform.rotation = Quaternion.Euler(0, 0, angle);
         }
