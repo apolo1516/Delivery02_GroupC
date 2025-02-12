@@ -14,14 +14,30 @@ public class EnemyVision : MonoBehaviour
     public event Action OnPlayerDetected;
     public event Action OnPlayerLost;
 
+    private LineRenderer lineRenderer;
+    public int visionSegments = 20; 
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
+
+        // Configurar LineRenderer
+        lineRenderer = GetComponent<LineRenderer>();
+        if (lineRenderer == null)
+            lineRenderer = gameObject.AddComponent<LineRenderer>();
+
+        lineRenderer.positionCount = visionSegments + 3; 
+        lineRenderer.startWidth = 0.05f;
+        lineRenderer.endWidth = 0.05f;
+        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        lineRenderer.startColor = new Color(1f, 0f, 0f, 0.5f); 
+        lineRenderer.endColor = new Color(1f, 0f, 0f, 0.1f);
     }
 
     void Update()
     {
         DetectPlayer();
+        DrawVisionCone();
     }
 
     void DetectPlayer()
@@ -30,10 +46,7 @@ public class EnemyVision : MonoBehaviour
 
         Vector3 directionToPlayer = (player.position - detectionPoint.position).normalized;
         float distanceToPlayer = Vector3.Distance(detectionPoint.position, player.position);
-
-        // 🔥 Convertimos la dirección local a global
         Vector3 forwardDirection = detectionPoint.TransformDirection(Vector3.right);
-
         float angleToPlayer = Vector3.Angle(forwardDirection, directionToPlayer);
 
         if (distanceToPlayer <= visionRange && angleToPlayer < visionAngle / 2)
@@ -56,25 +69,23 @@ public class EnemyVision : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
+    void DrawVisionCone()
     {
-        if (detectionPoint == null)
-            return;
+        if (detectionPoint == null) return;
 
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(detectionPoint.position, visionRange);
-
-        // 🔥 Convertimos la dirección local a global para que el cono de visión rote correctamente
         Vector3 forwardDirection = detectionPoint.TransformDirection(Vector3.right);
+        float halfAngle = visionAngle / 2;
 
-        Vector3 rightEdge = Quaternion.Euler(0, 0, visionAngle / 2) * forwardDirection * visionRange;
-        Vector3 leftEdge = Quaternion.Euler(0, 0, -visionAngle / 2) * forwardDirection * visionRange;
+        lineRenderer.SetPosition(0, detectionPoint.position); 
 
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(detectionPoint.position, detectionPoint.position + rightEdge);
-        Gizmos.DrawLine(detectionPoint.position, detectionPoint.position + leftEdge);
+        for (int i = 0; i <= visionSegments; i++)
+        {
+            float angle = -halfAngle + (visionAngle / visionSegments) * i;
+            Vector3 direction = Quaternion.Euler(0, 0, angle) * forwardDirection;
+            Vector3 point = detectionPoint.position + direction * visionRange;
+            lineRenderer.SetPosition(i + 1, point);
+        }
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(detectionPoint.position, detectionPoint.position + forwardDirection * visionRange);
+        lineRenderer.SetPosition(visionSegments + 2, detectionPoint.position);
     }
 }
