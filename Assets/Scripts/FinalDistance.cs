@@ -13,6 +13,6 @@ public class FinalDistance : MonoBehaviour
     }
     private void Start()
     {
-        _label.text = "Distance: " + Distance.Instance._distanceMoved.ToString();
+        _label.text = "Distance: " + Distance.Instance._distanceMoved.ToString("F2");
     }
 }

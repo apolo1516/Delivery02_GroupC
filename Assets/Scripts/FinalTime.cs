@@ -12,7 +12,7 @@ public class FinalTime : MonoBehaviour
     }
     private void Start()
     {
-        _label.text = "Time: " + TimeManager.Instance.ElapsedTime.ToString();
+        _label.text = "Time: " + (60 - TimeManager.Instance.ElapsedTime).ToString("F2") + " seconds left";
     }
 }
 
