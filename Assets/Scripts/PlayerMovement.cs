@@ -44,7 +44,8 @@ public class PlayerMovement : MonoBehaviour
         _newPosition = GetPlayerPosition();
         _distanceMoved += Vector2.Distance(_position, _newPosition);
         _position = GetPlayerPosition();
-        Debug.Log(_distanceMoved);
+        // Debug.Log(_distanceMoved);
+        Debug.Log(_rigidbody.linearVelocity);
     }
 
     public Vector2 GetPlayerPosition()
