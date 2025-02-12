@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8dd9a331ab348114fbd9497682410b6a
+guid: 8644ecc145ad47b43ae8f308dcabbd3c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1254792312740895091
-    second: 0ae95a03469fe58971c9c2577579e7d9_0
+      213: -9091615533489367326
+    second: Nightcity_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 0ae95a03469fe58971c9c2577579e7d9_0
+      name: Nightcity_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 736
-        height: 414
+        width: 2000
+        height: 1000
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d86203c2a05169ee0800000000000000
-      internalID: -1254792312740895091
+      spriteID: 2e651fb77d714d180800000000000000
+      internalID: -9091615533489367326
       vertices: []
       indices: 
       edges: []
