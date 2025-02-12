@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -8,8 +9,22 @@ public class Distance : MonoBehaviour
     GameObject player;
     private Vector2 _position;
     private Vector2 _newPosition;
-    private float _distanceMoved;
+    public float _distanceMoved;
+    public static Distance Instance;
+    public static Action<int> OnScoreUpdated;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     void Start()
     {
         player = GameObject.Find("Player");

@@ -146,8 +146,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -4679.9995}
-  m_LocalScale: {x: 52, y: 52, z: 52}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 57.700005, y: 57.700005, z: 57.700005}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2137077898}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -264,7 +264,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game Over
+  m_text: 'Game Over!
+
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4d3ef245e57b774469a52c446df6dd9e, type: 2}
   m_sharedMaterial: {fileID: 5002921848917271610, guid: 4d3ef245e57b774469a52c446df6dd9e,
@@ -292,7 +295,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 76.3
+  m_fontSize: 68.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

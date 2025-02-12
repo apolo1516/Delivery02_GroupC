@@ -1,3 +1,4 @@
+using System;
 using Unity.Hierarchy;
 using UnityEditor.SearchService;
 using UnityEngine;
@@ -9,6 +10,23 @@ public class TimeManager : MonoBehaviour
     public Text timeText; 
     private float startTime;
 
+    public static TimeManager Instance;
+    public static Action<int> OnScoreUpdated;
+    public float ElapsedTime;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Start()
     {
         startTime = Time.time;
@@ -16,10 +34,10 @@ public class TimeManager : MonoBehaviour
 
     void Update()
     {
-        float elapsedTime = Time.time - startTime; 
-        DisplayTime(elapsedTime); 
+        ElapsedTime = Time.time - startTime; 
+        DisplayTime(ElapsedTime); 
 
-        if (elapsedTime >= 60)
+        if (ElapsedTime >= 60)
         {
             SceneManager.LoadScene("Ending");
         }
