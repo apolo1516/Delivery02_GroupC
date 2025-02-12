@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class EnemyChase : MonoBehaviour
@@ -25,7 +26,7 @@ public class EnemyChase : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, player.transform.position) < 0.4f)
         {
-            return;
+            SceneManager.LoadScene("Ending");
         }
 
         Vector3 dir = player.transform.position - transform.position;
